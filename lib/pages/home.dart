@@ -1,152 +1,131 @@
+import 'dart:async';
+
+import 'package:appbar_textfield/appbar_textfield.dart';
 import 'package:demo/models/gst-info.dart';
+import 'package:demo/pages/bloc/home_bloc.dart';
 import 'package:demo/services/api_manager.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:faker/faker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: BlocProvider(
+        create: (context) => HomeBloc(),
+        child: ListScreen(),
+      ),
+    );
+  }
+}
+
+class ListScreen extends StatefulWidget {
+  ListScreen({Key key}) : super(key: key);
+
+  @override
+  _ListScreenState createState() => _ListScreenState();
+}
+
+class _ListScreenState extends State<ListScreen> {
   Future<List<Welcome>> _gstinfo;
-  Widget appBarTitle = new Text(
-    "Search Sample",
-    style: new TextStyle(color: Colors.white),
-  );
-  Icon actionIcon = new Icon(
-    Icons.search,
-    color: Colors.white,
-  );
-  final key = new GlobalKey<ScaffoldState>();
-  final TextEditingController _searchQuery = new TextEditingController();
-  List<String> _list;
-  bool _IsSearching;
-  String _searchText = "";
-  TextEditingController controller = new TextEditingController();
+  List<Welcome> _allContacts = List<Welcome>();
+  StreamController<List<Welcome>> _contactStream =
+      StreamController<List<Welcome>>();
+
   @override
   void initState() {
-    _gstinfo = ApiManager().getNews();
+    // _gstinfo = ApiManager().getNews();
+    context.read<HomeBloc>().add(LoadHomeEvent());
 
     super.initState();
   }
 
-  _SearchListState() {
-    _searchQuery.addListener(() {
-      if (_searchQuery.text.isEmpty) {
-        setState(() {
-          _IsSearching = false;
-          _searchText = "";
-        });
-      } else {
-        setState(() {
-          _IsSearching = true;
-          _searchText = _searchQuery.text;
-        });
-      }
-    });
-  }
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        centerTitle: true,
-        title: appBarTitle,
-        actions: <Widget>[
-          new IconButton(
-            icon: actionIcon,
-            onPressed: () {
-              setState(() {
-                if (this.actionIcon.icon == Icons.search) {
-                  this.actionIcon = new Icon(
-                    Icons.close,
-                    color: Colors.white,
-                  );
-                  this.appBarTitle = new TextField(
-                    controller: _searchQuery,
-                    style: new TextStyle(
-                      color: Colors.white,
-                    ),
-                    decoration: new InputDecoration(
-                        prefixIcon: new Icon(Icons.search, color: Colors.white),
-                        hintText: "Search...",
-                        hintStyle: new TextStyle(color: Colors.white)),
-                  );
-                  //  _handleSearchStart();
-                } else {
-                  //_handleSearchEnd();
-                }
-              });
-            },
-          ),
-        ],
-        backgroundColor: Colors.black,
-      ),
-      body: Container(
-        child: FutureBuilder<List<Welcome>>(
-          future: _gstinfo,
-          builder: (context, snapshot) {
-            print(snapshot.data.toString());
-            if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    Welcome welcome = snapshot.data[index];
-
-                    return ListTile(
-                      onTap: () {},
-                      title: Text(
-                        "${welcome.name} ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                      ),
-                      subtitle: Text(
-                        '${welcome.address} \n Status : ${welcome.status}\nBusiness Type : ${welcome.bussinesstype}\n',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14),
-                        //textAlign: TextAlign.center,
-                      ),
-                      trailing: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 5.0, horizontal: 10.0),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                const Color(0xfffc0b7b),
-                                const Color(0xff7820ad)
-                              ],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Text(
-                            ' date of Registration\n${welcome.dateOfRegistration}',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    );
-                  });
+        appBar: AppBarTextField(
+          title: Text("GST finder"),
+          onBackPressed: _onRestoreAllData,
+          onClearPressed: _onRestoreAllData,
+          onChanged: (value) =>
+              context.read<HomeBloc>().add(SearchWelcomeEvent(value)),
+        ),
+        body: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is HomeLoadedState) {
+              state.welcomeList;
+              return Container();
+            }
+            if (state is NotFoundState)
+              return Container(
+                child: Text("Not Found"),
+              );
+            if (state is HomeSearchLoadedState) {
+              print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+              print(state.welcome.GSTINNumber.toString());
+              return Container(
+                child: Text(
+                    "  \n GSTIN: ${state.welcome.GSTINNumber}\n Address: ${state.welcome.address}\n Business Type: ${state.welcome.bussinesstype}\n Tax Payer Type: ${state.welcome.taxpayertype}\n Date of Registration: ${state.welcome.dateOfRegistration}\n",
+                    style: TextStyle(color: Colors.black54, fontSize: 16)),
+              );
             }
 
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           },
-        ),
-      ),
-    );
+        ));
+  }
+
+  void _onSearchChanged(String value) {}
+
+  void _onRestoreAllData() {
+    this._contactStream.add(this._allContacts);
+  }
+
+  Widget _buildBody() {
+    return FutureBuilder<List<Welcome>>(
+        future: _gstinfo,
+        // stream: _contactStream.stream,
+        builder: (context, snapshot) {
+          List<Welcome> contacts = snapshot.hasData ? snapshot.data : [];
+          print("hiiiiiiiiiiiiiiiii");
+          print(snapshot.data);
+          return ListView.builder(
+            itemCount: contacts.length,
+            itemBuilder: (context, index) {
+              var contact = contacts[index];
+              return ListTile(
+                title: Expanded(
+                  child: Text(
+                    contact.name,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    // overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                subtitle: Text(
+                    " \n GSTIN: ${contact.GSTINNumber.toString()}\n Address: ${contact.address.toString()}\n Business Type: ${contact.bussinesstype.toString()}\n Tax Payer Type: ${contact.taxpayertype.toString()}\n Date of Registration: ${contact.dateOfRegistration.toString()}\n",
+                    style: TextStyle(color: Colors.black54, fontSize: 16)),
+              );
+            },
+          );
+        });
+  }
+
+  @override
+  void dispose() {
+    _contactStream.close();
+    super.dispose();
   }
 }

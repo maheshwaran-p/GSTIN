@@ -1,12 +1,15 @@
 import 'dart:convert';
 
-class Welcome {
+import 'package:equatable/equatable.dart';
+
+class Welcome extends Equatable {
   final String name;
   final String status;
   final String address;
   final String taxpayertype;
   final String bussinesstype;
   final String dateOfRegistration;
+  final String GSTINNumber;
   Welcome({
     this.name,
     this.status,
@@ -14,6 +17,7 @@ class Welcome {
     this.taxpayertype,
     this.bussinesstype,
     this.dateOfRegistration,
+    this.GSTINNumber,
   });
 
   Welcome copyWith({
@@ -23,6 +27,7 @@ class Welcome {
     String taxpayertype,
     String bussinesstype,
     String dateOfRegistration,
+    String GSTINNumber,
   }) {
     return Welcome(
       name: name ?? this.name,
@@ -31,6 +36,7 @@ class Welcome {
       taxpayertype: taxpayertype ?? this.taxpayertype,
       bussinesstype: bussinesstype ?? this.bussinesstype,
       dateOfRegistration: dateOfRegistration ?? this.dateOfRegistration,
+      GSTINNumber: GSTINNumber ?? this.GSTINNumber,
     );
   }
 
@@ -42,10 +48,13 @@ class Welcome {
       'taxpayertype': taxpayertype,
       'bussinesstype': bussinesstype,
       'date-of-registration': dateOfRegistration,
+      'GSTIN-number': GSTINNumber,
     };
   }
 
   factory Welcome.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
     return Welcome(
       name: map['name'],
       status: map['status'],
@@ -53,6 +62,7 @@ class Welcome {
       taxpayertype: map['taxpayertype'],
       bussinesstype: map['bussinesstype'],
       dateOfRegistration: map['date-of-registration'],
+      GSTINNumber: map['GSTIN-number'],
     );
   }
 
@@ -63,20 +73,21 @@ class Welcome {
 
   @override
   String toString() {
-    return 'Welcome(name: $name, status: $status, address: $address, taxpayertype: $taxpayertype, bussinesstype: $bussinesstype, dateOfRegistration: $dateOfRegistration)';
+    return 'Welcome(name: $name, status: $status, address: $address, taxpayertype: $taxpayertype, bussinesstype: $bussinesstype, dateOfRegistration: $dateOfRegistration, GSTINNumber: $GSTINNumber)';
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
 
-    return other is Welcome &&
-        other.name == name &&
-        other.status == status &&
-        other.address == address &&
-        other.taxpayertype == taxpayertype &&
-        other.bussinesstype == bussinesstype &&
-        other.dateOfRegistration == dateOfRegistration;
+    return o is Welcome &&
+        o.name == name &&
+        o.status == status &&
+        o.address == address &&
+        o.taxpayertype == taxpayertype &&
+        o.bussinesstype == bussinesstype &&
+        o.dateOfRegistration == dateOfRegistration &&
+        o.GSTINNumber == GSTINNumber;
   }
 
   @override
@@ -86,6 +97,10 @@ class Welcome {
         address.hashCode ^
         taxpayertype.hashCode ^
         bussinesstype.hashCode ^
-        dateOfRegistration.hashCode;
+        dateOfRegistration.hashCode ^
+        GSTINNumber.hashCode;
   }
+
+  @override
+  List<Object> get props => [GSTINNumber];
 }
