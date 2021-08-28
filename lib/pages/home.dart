@@ -144,11 +144,6 @@ class _ListScreenState extends State<ListScreen> {
   }
 }
 
-//Now i am working at below code to create Ui as per attachment .
-//Sorry for the inconvenient now only i saw your Ui attachment .
-//Except Ui i Have done all other search features .
-//will complete this as well asap.
-
 class SearchPage extends StatefulWidget {
   const SearchPage({Key key}) : super(key: key);
 
@@ -310,6 +305,173 @@ class _SearchPageState extends State<SearchPage> {
                     width: MediaQuery.of(context).size.height * .9,
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        "Search",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    height: 50,
+                    width: MediaQuery.of(context).size.height * .9,
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class SearchResultPage extends StatefulWidget {
+  const SearchResultPage({Key key}) : super(key: key);
+
+  @override
+  _SearchResultPageState createState() => _SearchResultPageState();
+}
+
+class _SearchResultPageState extends State<SearchResultPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Container(
+                height: MediaQuery.of(context).size.height * .32,
+                width: MediaQuery.of(context).size.height * .9,
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0),
+                    )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 55, left: 25),
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 55.0, left: 23),
+                          child: Text(
+                            "GST Profile",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 27,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 52.0, left: 26),
+                      child: Text.rich(TextSpan(
+                          style: TextStyle(color: Colors.white),
+                          text: 'GSTIN of the Tax Payer \n\n ',
+                          children: <InlineSpan>[
+                            TextSpan(
+                              text: 'GSTIN',
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ])),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 16),
+                      child: Container(
+                        width: 120,
+                        height: 40,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            "status",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(28))),
+                      ),
+                    ),
+                  ],
+                )),
+          ),
+          Container(
+              child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, left: 28, bottom: 20),
+                child: Icon(
+                  Icons.location_on,
+                  color: Colors.green,
+                  size: 30,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 22.0, left: 26),
+                child: Text.rich(TextSpan(
+                    style: TextStyle(color: Colors.black),
+                    text: 'Address \n\n ',
+                    children: <InlineSpan>[
+                      TextSpan(
+                        text: 'Add',
+                        style: TextStyle(
+                            fontSize: 19, fontWeight: FontWeight.w400),
+                      ),
+                    ])),
+              ),
+            ],
+          )),
+          Container(
+              child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, left: 30, bottom: 20),
+                child: Icon(
+                  Icons.account_balance,
+                  color: Colors.green,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 22.0, left: 26),
+                child: Text.rich(TextSpan(
+                    style: TextStyle(color: Colors.black),
+                    text: 'Floor \n\n ',
+                    children: <InlineSpan>[
+                      TextSpan(
+                        text: 'place',
+                        style: TextStyle(
+                            fontSize: 19, fontWeight: FontWeight.w400),
+                      ),
+                    ])),
+              ),
+            ],
+          )),
+          Container(
+//color: Colors.amber,
+            height: MediaQuery.of(context).size.height * .35,
+            width: MediaQuery.of(context).size.height * .9,
+            child: Column(
+              children: [
                 Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Container(
