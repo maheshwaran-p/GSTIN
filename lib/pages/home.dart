@@ -144,6 +144,11 @@ class _ListScreenState extends State<ListScreen> {
   }
 }
 
+//Now i am working at below code to create Ui as per attachment .
+//Sorry for the inconvenient now only i saw your Ui attachment .
+//Except Ui i Have done all other search features .
+//will complete this as well asap.
+
 class SearchPage extends StatefulWidget {
   const SearchPage({Key key}) : super(key: key);
 
