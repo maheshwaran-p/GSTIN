@@ -1,17 +1,3 @@
-# demo
+Note :
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+I have done all the things that you have mentioned in mail . except one that is UI . now only I saw you attachment . so , as of  now I done this with my own UI . I am changing it as per your attachment . will complete it asap . sorry for the inconvenience .
