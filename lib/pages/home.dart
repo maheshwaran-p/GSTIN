@@ -8,28 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: BlocProvider(
-        create: (context) => HomeBloc(),
-        child: ListScreen(),
-      ),
-    );
-  }
-}
-
 class ListScreen extends StatefulWidget {
   ListScreen({Key key}) : super(key: key);
 
@@ -56,28 +34,63 @@ class _ListScreenState extends State<ListScreen> {
     return Scaffold(
         appBar: AppBarTextField(
           title: Text("GST finder"),
-          onBackPressed: _onRestoreAllData,
-          onClearPressed: _onRestoreAllData,
+          onBackPressed: _buildBody,
+          onClearPressed: _buildBody,
           onChanged: (value) =>
               context.read<HomeBloc>().add(SearchWelcomeEvent(value)),
         ),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeLoadedState) {
-              state.welcomeList;
-              return Container();
+              return ListView.builder(
+                itemCount: state.welcomeList.length,
+                itemBuilder: (context, index) {
+                  var contact = state.welcomeList[index];
+                  return ListTile(
+                    title: Expanded(
+                      child: Text(
+                        contact.name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                        // overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    subtitle: Text(
+                        " \n GSTIN: ${contact.GSTINNumber.toString()}\n Address: ${contact.address.toString()}\n Business Type: ${contact.bussinesstype.toString()}\n Tax Payer Type: ${contact.taxpayertype.toString()}\n Date of Registration: ${contact.dateOfRegistration.toString()}\n",
+                        style: TextStyle(color: Colors.black54, fontSize: 16)),
+                  );
+                },
+              );
             }
             if (state is NotFoundState)
               return Container(
-                child: Text("Not Found"),
+                child: Center(
+                    child: Text("Enter Valid GSTIN Number!",
+                        style: TextStyle(color: Colors.red))),
               );
             if (state is HomeSearchLoadedState) {
               print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
               print(state.welcome.GSTINNumber.toString());
-              return Container(
-                child: Text(
-                    "  \n GSTIN: ${state.welcome.GSTINNumber}\n Address: ${state.welcome.address}\n Business Type: ${state.welcome.bussinesstype}\n Tax Payer Type: ${state.welcome.taxpayertype}\n Date of Registration: ${state.welcome.dateOfRegistration}\n",
-                    style: TextStyle(color: Colors.black54, fontSize: 16)),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(13.0),
+                    child: Text(
+                      "${state.welcome.name}",
+                      style: TextStyle(color: Colors.black, fontSize: 17),
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                          " GSTIN: ${state.welcome.GSTINNumber}\n Address: ${state.welcome.address}\n Business Type: ${state.welcome.bussinesstype}\n Tax Payer Type: ${state.welcome.taxpayertype}\n Date of Registration: ${state.welcome.dateOfRegistration}\n",
+                          style:
+                              TextStyle(color: Colors.black54, fontSize: 16)),
+                    ),
+                  ),
+                ],
               );
             }
 
