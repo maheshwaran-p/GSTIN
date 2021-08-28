@@ -7,6 +7,7 @@ import 'package:demo/services/api_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toggle_bar/toggle_bar.dart';
 
 class ListScreen extends StatefulWidget {
   ListScreen({Key key}) : super(key: key);
@@ -152,6 +153,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   @override
+  bool search = true;
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -163,7 +166,7 @@ class _SearchPageState extends State<SearchPage> {
                 height: MediaQuery.of(context).size.height * .35,
                 width: MediaQuery.of(context).size.height * .9,
                 decoration: BoxDecoration(
-                    color: Colors.greenAccent,
+                    color: Colors.green,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(40.0),
                       bottomRight: Radius.circular(40.0),
@@ -172,7 +175,14 @@ class _SearchPageState extends State<SearchPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 116.0, left: 26),
+                      padding: const EdgeInsets.only(top: 45, left: 350),
+                      child: Icon(
+                        Icons.more_vert,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 52.0, left: 26),
                       child: Text.rich(TextSpan(
                           style: TextStyle(color: Colors.white),
                           text: 'Select the type for \n\n ',
@@ -189,9 +199,66 @@ class _SearchPageState extends State<SearchPage> {
                           const EdgeInsets.only(top: 46.0, right: 14, left: 14),
                       child: Container(
                         child: Padding(
-                            padding: const EdgeInsets.only(top: 16.0),
+                            padding: const EdgeInsets.all(2.7),
                             child: Row(
-                              children: [],
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        search = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 176,
+                                      height: 70,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: Text(
+                                          "Seach GST Number",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: (search)
+                                              ? Colors.white
+                                              : Colors.transparent,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(28))),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        search = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 177,
+                                      height: 70,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: Text(
+                                          "Seach Return Status",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: (!search)
+                                              ? Colors.white
+                                              : Colors.transparent,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(28))),
+                                    ),
+                                  ),
+                                )
+                              ],
                             )),
                         decoration: BoxDecoration(
                             color: Colors.white60,
