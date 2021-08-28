@@ -142,3 +142,125 @@ class _ListScreenState extends State<ListScreen> {
     super.dispose();
   }
 }
+
+class SearchPage extends StatefulWidget {
+  const SearchPage({Key key}) : super(key: key);
+
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Container(
+                height: MediaQuery.of(context).size.height * .35,
+                width: MediaQuery.of(context).size.height * .9,
+                decoration: BoxDecoration(
+                    color: Colors.greenAccent,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40.0),
+                      bottomRight: Radius.circular(40.0),
+                    )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 116.0, left: 26),
+                      child: Text.rich(TextSpan(
+                          style: TextStyle(color: Colors.white),
+                          text: 'Select the type for \n\n ',
+                          children: <InlineSpan>[
+                            TextSpan(
+                              text: 'GST Search Tool',
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ])),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 46.0, right: 14, left: 14),
+                      child: Container(
+                        child: Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Row(
+                              children: [],
+                            )),
+                        decoration: BoxDecoration(
+                            color: Colors.white60,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(28))),
+                        height: 50,
+                        width: MediaQuery.of(context).size.height * .9,
+                      ),
+                    )
+                  ],
+                )),
+          ),
+          Container(
+//color: Colors.amber,
+            height: MediaQuery.of(context).size.height * .35,
+            width: MediaQuery.of(context).size.height * .9,
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 60.0, left: 20, right: 200),
+                  child: Text(
+                    "Enter GST Number ",
+                    style: TextStyle(color: Colors.black26, fontSize: 17),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            // labelText: '     Ex: 07AACCM9910C1ZP',
+                            hintText: 'Ex: 07AACCM9910C1ZP'),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    height: 50,
+                    width: MediaQuery.of(context).size.height * .9,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        "Search",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                    height: 50,
+                    width: MediaQuery.of(context).size.height * .9,
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
