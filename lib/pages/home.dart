@@ -91,7 +91,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 10.0),
                               child: Text(
-                                "status",
+                                "${state.welcome.status}",
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -117,15 +117,16 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 22.0, left: 26),
+                    padding:
+                        const EdgeInsets.only(top: 22.0, left: 26, bottom: 20),
                     child: Text.rich(TextSpan(
                         style: TextStyle(color: Colors.black),
-                        text: 'Address \n\n ',
+                        text: 'Address : \n ',
                         children: <InlineSpan>[
                           TextSpan(
-                            text: 'Add',
+                            text: '${state.welcome.address}',
                             style: TextStyle(
-                                fontSize: 19, fontWeight: FontWeight.w400),
+                                fontSize: 17, fontWeight: FontWeight.w800),
                           ),
                         ])),
                   ),
@@ -143,15 +144,16 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 22.0, left: 26),
+                    padding:
+                        const EdgeInsets.only(top: 22.0, left: 26, bottom: 20),
                     child: Text.rich(TextSpan(
                         style: TextStyle(color: Colors.black),
-                        text: 'Floor \n\n ',
+                        text: 'Floor : \n ',
                         children: <InlineSpan>[
                           TextSpan(
-                            text: 'place',
+                            text: '${state.welcome.Floor}',
                             style: TextStyle(
-                                fontSize: 19, fontWeight: FontWeight.w400),
+                                fontSize: 17, fontWeight: FontWeight.w800),
                           ),
                         ])),
                   ),
@@ -166,13 +168,12 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   Container(
                     height: 67,
                     width: 84,
-                    color: Colors.red,
                     child: Text.rich(TextSpan(
                         style: TextStyle(color: Colors.black),
                         text: 'state  \n\n ',
                         children: <InlineSpan>[
                           TextSpan(
-                            text: 'ward74',
+                            text: '${state.welcome.StateJurisdiction}',
                             style: TextStyle(
                                 fontSize: 19, fontWeight: FontWeight.bold),
                           ),
@@ -180,14 +181,13 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   ),
                   Container(
                     height: 67,
-                    width: 84,
-                    color: Colors.blue,
+                    width: 97,
                     child: Text.rich(TextSpan(
                         style: TextStyle(color: Colors.black),
                         text: 'Court  \n\n ',
                         children: <InlineSpan>[
                           TextSpan(
-                            text: 'range -139',
+                            text: '${state.welcome.CourtJusritiction}',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -196,13 +196,12 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   Container(
                     height: 67,
                     width: 104,
-                    color: Colors.yellow,
                     child: Text.rich(TextSpan(
                         style: TextStyle(color: Colors.black),
                         text: 'Tax Payer Type  \n\n ',
                         children: <InlineSpan>[
                           TextSpan(
-                            text: 'Regular',
+                            text: '${state.welcome.taxpayertype}',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
@@ -215,7 +214,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
                 child: Container(
                   width: MediaQuery.of(context).size.height * .9,
                   height: 70,
-                  color: Colors.orange,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text.rich(TextSpan(
@@ -223,7 +221,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                         text: 'Contribution of business  \n\n ',
                         children: <InlineSpan>[
                           TextSpan(
-                            text: 'Private limited Company',
+                            text: '${state.welcome.bussinesstype}',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -237,20 +235,18 @@ class _SearchResultPageState extends State<SearchResultPage> {
                 child: Container(
                   width: MediaQuery.of(context).size.height * .9,
                   height: 70,
-                  color: Colors.orange,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
                         height: 67,
                         width: 200,
-                        color: Colors.red,
                         child: Text.rich(TextSpan(
                             style: TextStyle(color: Colors.black),
                             text: 'Date of registration  \n\n ',
                             children: <InlineSpan>[
                               TextSpan(
-                                text: 'Regular',
+                                text: '${state.welcome.dateOfRegistration}',
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               ),
@@ -259,7 +255,6 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       Container(
                         height: 67,
                         width: 144,
-                        color: Colors.blue,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 78.0, top: 10),
                           child: Text.rich(TextSpan(
@@ -461,23 +456,27 @@ class _SearchResultPageState extends State<SearchResultPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Text(
-                          "Search",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 17),
+                      padding: const EdgeInsets.all(18.0),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Text(
+                              "Search",
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          height: 50,
+                          width: MediaQuery.of(context).size.height * .9,
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      height: 50,
-                      width: MediaQuery.of(context).size.height * .9,
-                    ),
-                  )
+                      ))
                 ],
               ),
             )
