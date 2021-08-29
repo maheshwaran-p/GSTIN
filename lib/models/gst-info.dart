@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
-class Welcome extends Equatable {
+class Welcome {
   final String name;
   final String status;
   final String address;
@@ -10,6 +8,9 @@ class Welcome extends Equatable {
   final String bussinesstype;
   final String dateOfRegistration;
   final String GSTINNumber;
+  final String Floor;
+  final String StateJurisdiction;
+  final String CourtJusritiction;
   Welcome({
     this.name,
     this.status,
@@ -18,6 +19,9 @@ class Welcome extends Equatable {
     this.bussinesstype,
     this.dateOfRegistration,
     this.GSTINNumber,
+    this.Floor,
+    this.StateJurisdiction,
+    this.CourtJusritiction,
   });
 
   Welcome copyWith({
@@ -28,6 +32,9 @@ class Welcome extends Equatable {
     String bussinesstype,
     String dateOfRegistration,
     String GSTINNumber,
+    String Floor,
+    String StateJurisdiction,
+    String CourtJusritiction,
   }) {
     return Welcome(
       name: name ?? this.name,
@@ -37,6 +44,9 @@ class Welcome extends Equatable {
       bussinesstype: bussinesstype ?? this.bussinesstype,
       dateOfRegistration: dateOfRegistration ?? this.dateOfRegistration,
       GSTINNumber: GSTINNumber ?? this.GSTINNumber,
+      Floor: Floor ?? this.Floor,
+      StateJurisdiction: StateJurisdiction ?? this.StateJurisdiction,
+      CourtJusritiction: CourtJusritiction ?? this.CourtJusritiction,
     );
   }
 
@@ -49,6 +59,9 @@ class Welcome extends Equatable {
       'bussinesstype': bussinesstype,
       'date-of-registration': dateOfRegistration,
       'GSTIN-number': GSTINNumber,
+      'Floor': Floor,
+      'StateJurisdiction': StateJurisdiction,
+      'CourtJusritiction': CourtJusritiction,
     };
   }
 
@@ -63,6 +76,9 @@ class Welcome extends Equatable {
       bussinesstype: map['bussinesstype'],
       dateOfRegistration: map['date-of-registration'],
       GSTINNumber: map['GSTIN-number'],
+      Floor: map['Floor'],
+      StateJurisdiction: map['StateJurisdiction'],
+      CourtJusritiction: map['CourtJusritiction'],
     );
   }
 
@@ -73,7 +89,7 @@ class Welcome extends Equatable {
 
   @override
   String toString() {
-    return 'Welcome(name: $name, status: $status, address: $address, taxpayertype: $taxpayertype, bussinesstype: $bussinesstype, dateOfRegistration: $dateOfRegistration, GSTINNumber: $GSTINNumber)';
+    return 'Welcome(name: $name, status: $status, address: $address, taxpayertype: $taxpayertype, bussinesstype: $bussinesstype, dateOfRegistration: $dateOfRegistration, GSTINNumber: $GSTINNumber, Floor: $Floor, StateJurisdiction: $StateJurisdiction, CourtJusritiction: $CourtJusritiction)';
   }
 
   @override
@@ -87,7 +103,10 @@ class Welcome extends Equatable {
         o.taxpayertype == taxpayertype &&
         o.bussinesstype == bussinesstype &&
         o.dateOfRegistration == dateOfRegistration &&
-        o.GSTINNumber == GSTINNumber;
+        o.GSTINNumber == GSTINNumber &&
+        o.Floor == Floor &&
+        o.StateJurisdiction == StateJurisdiction &&
+        o.CourtJusritiction == CourtJusritiction;
   }
 
   @override
@@ -98,9 +117,9 @@ class Welcome extends Equatable {
         taxpayertype.hashCode ^
         bussinesstype.hashCode ^
         dateOfRegistration.hashCode ^
-        GSTINNumber.hashCode;
+        GSTINNumber.hashCode ^
+        Floor.hashCode ^
+        StateJurisdiction.hashCode ^
+        CourtJusritiction.hashCode;
   }
-
-  @override
-  List<Object> get props => [GSTINNumber];
 }

@@ -36,7 +36,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else if (event is SearchWelcomeEvent) {
       Welcome welcome;
       for (Welcome each in welcomeList) {
-        if (each.GSTINNumber.contains(event.id)) {
+        if (each.GSTINNumber == event.id) {
           welcome = each;
           break;
         }
