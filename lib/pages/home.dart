@@ -457,6 +457,12 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       width: MediaQuery.of(context).size.height * .9,
                     ),
                   ),
+                  if (state is NotFoundState)
+                    Text(
+                      "Enter Valid GSTIN Number",
+                      style: TextStyle(color: Colors.red, fontSize: 12),
+                      // textAlign: TextAlign.center,
+                    ),
                   Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: GestureDetector(
@@ -480,7 +486,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                           height: 50,
                           width: MediaQuery.of(context).size.height * .9,
                         ),
-                      ))
+                      )),
                 ],
               ),
             )

@@ -38,14 +38,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       for (Welcome each in welcomeList) {
         if (each.GSTINNumber == event.id) {
           welcome = each;
-          break;
+          // break;
         }
-      }
 
-      if (welcome == null)
-        yield NotFoundState();
-      else
-        yield HomeSearchLoadedState(welcome);
+        if (welcome == null)
+          yield NotFoundState();
+        else
+          yield HomeSearchLoadedState(welcome);
+      }
     }
   }
 }
