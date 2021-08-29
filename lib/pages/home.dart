@@ -48,7 +48,9 @@ class _SearchResultPageState extends State<SearchResultPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 55, left: 25),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  context.read<HomeBloc>().add(LoadHomeEvent());
+                                },
                                 child: Icon(
                                   Icons.arrow_back_ios,
                                   color: Colors.white,
