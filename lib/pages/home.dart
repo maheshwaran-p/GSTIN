@@ -12,6 +12,8 @@ class SearchResultPage extends StatefulWidget {
 class _SearchResultPageState extends State<SearchResultPage> {
   bool search = true;
 
+  String val;
+
   void initState() {
     context.read<HomeBloc>().add(LoadHomeEvent());
 
@@ -228,7 +230,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 18, left: 10, right: 10, bottom: 15),
+                    top: 26, left: 10, right: 10, bottom: 15),
                 child: Container(
                   width: MediaQuery.of(context).size.height * .9,
                   height: 70,
@@ -271,31 +273,36 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   ),
                 ),
               ),
-              Container(
-                //color: Colors.amber,
-                height: MediaQuery.of(context).size.height * .12,
-                width: MediaQuery.of(context).size.height * .9,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 16.0),
-                          child: Text(
-                            "Get Return Filing Status",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white, fontSize: 17),
+              Padding(
+                padding: const EdgeInsets.only(top: 17.0),
+                child: Container(
+                  //color: Colors.amber,
+                  height: MediaQuery.of(context).size.height * .12,
+                  width: MediaQuery.of(context).size.height * .9,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 16.0),
+                            child: Text(
+                              "Get Return Filing Status",
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 17),
+                            ),
                           ),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          height: 50,
+                          width: MediaQuery.of(context).size.height * .9,
                         ),
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                        height: 50,
-                        width: MediaQuery.of(context).size.height * .9,
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
@@ -436,14 +443,12 @@ class _SearchResultPageState extends State<SearchResultPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              // labelText: '     Ex: 07AACCM9910C1ZP',
-                              hintText: 'Ex: 07AACCM9910C1ZP'),
-                          onChanged: (value) => context
-                              .read<HomeBloc>()
-                              .add(SearchWelcomeEvent(value)),
-                        ),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Ex: 07AACCM9910C1ZP'),
+                            onChanged: (value) {
+                              val = value;
+                            }),
                       ),
                       decoration: BoxDecoration(
                           color: Colors.black12,
@@ -455,7 +460,9 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          context.read<HomeBloc>().add(SearchWelcomeEvent(val));
+                        },
                         child: Container(
                           child: Padding(
                             padding: const EdgeInsets.only(top: 16.0),
