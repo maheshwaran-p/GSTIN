@@ -23,13 +23,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-        if (state is NotFoundState)
-          return Container(
-            child: Center(
-                child: Text("Enter Valid GSTIN Number!",
-                    style: TextStyle(color: Colors.red))),
-          );
-
+        if (state is NotFoundState) {}
         if (state is HomeSearchLoadedState) {
           return Column(
             children: [
@@ -51,9 +45,12 @@ class _SearchResultPageState extends State<SearchResultPage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 55, left: 25),
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.white,
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                             Padding(
@@ -118,7 +115,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 22.0, left: 26, bottom: 20),
+                        const EdgeInsets.only(top: 22.0, left: 24, bottom: 20),
                     child: Text.rich(TextSpan(
                         style: TextStyle(color: Colors.black),
                         text: 'Address : \n ',
@@ -126,7 +123,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                           TextSpan(
                             text: '${state.welcome.address}',
                             style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.w800),
+                                fontSize: 15, fontWeight: FontWeight.w800),
                           ),
                         ])),
                   ),
@@ -145,7 +142,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 22.0, left: 26, bottom: 20),
+                        const EdgeInsets.only(top: 22.0, left: 24, bottom: 20),
                     child: Text.rich(TextSpan(
                         style: TextStyle(color: Colors.black),
                         text: 'Floor : \n ',
@@ -153,7 +150,7 @@ class _SearchResultPageState extends State<SearchResultPage> {
                           TextSpan(
                             text: '${state.welcome.Floor}',
                             style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.w800),
+                                fontSize: 15, fontWeight: FontWeight.w800),
                           ),
                         ])),
                   ),
